@@ -1,18 +1,32 @@
+
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Welcome Home {{user.username}}</h1>
+
   </div>
+</div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import axios from 'axios'
 export default {
-  name: 'home',
-  components: {
-    HelloWorld
+  data(){
+    return{
+      user: {}
+    }
+  },
+  created(){
+    axios.get(`/user/${localStorage.getItem('userId')}`)
+    .then(res=>{
+      this.user = res.data.data
+    })
   }
 }
 </script>
+
+<style scoped> 
+  div{
+    color: red !important;
+  }
+</style>
